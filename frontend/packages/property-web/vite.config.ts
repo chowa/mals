@@ -23,7 +23,7 @@ export default defineConfig({
     plugins: [react()],
     build: {
         target: 'es2015',
-        minify: 'terser',
+        // minify: 'terser',
         cssCodeSplit: true,
         rollupOptions: {
             plugins: [],

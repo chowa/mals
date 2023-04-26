@@ -1,9 +1,8 @@
 import { create } from 'zustand';
 import { PaletteMode } from '@mui/material';
-import { PrimaryColor } from '@mals/common-web/styles/theme';
+import { PrimaryColor, ThemeContrast } from '@mals/common-web/styles/theme';
 import StorageUtils from '@mals/utils/storage';
-
-type ThemeContrast = 'default' | 'bold';
+import DiffUtils from '@mals/utils/diff';
 
 type ThemeDirection = 'ltr' | 'rtl';
 
@@ -11,7 +10,7 @@ type ThemeLayout = 'vertical' | 'horizontal' | 'mini';
 
 type ThemeColorPresets = PrimaryColor;
 
-interface SettingLocalStorage {
+interface SettingState {
     // 主题模式
     themeMode: PaletteMode;
     // 对比
@@ -26,81 +25,103 @@ interface SettingLocalStorage {
     themeColorPresets: ThemeColorPresets;
 }
 
-interface SettingStore extends SettingLocalStorage {
-    readonly initialize: () => void;
-    readonly saveLocal: () => void;
-    readonly setThemeMode: (themeMode: PaletteMode) => void;
-    readonly setThemeContrast: (themeContrast: ThemeContrast) => void;
-    readonly setThemeDirection: (themeDirection: ThemeDirection) => void;
-    readonly setThemeLayout: (themeLayout: ThemeLayout) => void;
-    readonly setThemeStretch: (themeStretch: boolean) => void;
-    readonly setThemeCorePresets: (themeColorPresets: ThemeColorPresets) => void;
+interface SettingStore extends SettingState {
+    visible: boolean;
+    isDefault: boolean;
+    isFullScreen: boolean;
+    initialize: () => void;
+    saveHandler: (state: { [P in keyof SettingState]?: SettingState[P] }) => void;
+    setThemeMode: (themeMode: PaletteMode) => void;
+    setThemeContrast: (themeContrast: ThemeContrast) => void;
+    setThemeDirection: (themeDirection: ThemeDirection) => void;
+    setThemeLayout: (themeLayout: ThemeLayout) => void;
+    setThemeStretch: (themeStretch: boolean) => void;
+    setThemeCorePresets: (themeColorPresets: ThemeColorPresets) => void;
+    reset: () => void;
+    show: () => void;
+    hide: () => void;
 }
 
 const localStorageName= 'setting';
 
-const useSettingStore = create<SettingStore>((setState, getState) => ({
+const defaultState: SettingState = {
     themeMode: 'light',
     themeContrast: 'default',
     themeDirection: 'ltr',
-    themeLayout: 'vertical',
+    themeLayout: 'horizontal',
     themeStretch: false,
-    themeColorPresets: 'default',
+    themeColorPresets: 'default'
+};
+
+function getIsFullScreen(): boolean {
+    // @ts-expect-error
+    return (window.document.fullscreenElement || window.document.webkitFullscreenElement) !== null
+}
+
+const useSettingStore = create<SettingStore>((setState, getState) => ({
+    ...defaultState,
+    visible: false,
+    isDefault: true,
+    isFullScreen: getIsFullScreen(),
     initialize: () => {
         const storageValue = StorageUtils.getLocal(localStorageName);
+        const event = ('onfullscreenchange' in window.document) ? 'fullscreenchange' : 'webkitfullscreenchange';
+
+        window.document.addEventListener(event, () => {
+            setState({ isFullScreen: getIsFullScreen() });
+        }, false);
 
         if (storageValue) {
             try {
-                const mapValue = JSON.parse(storageValue) as SettingLocalStorage;
-                const state = getState();
-
-                setState(Object.assign({
-                    themeMode: state.themeMode,
-                    themeContrast: state.themeContrast,
-                    themeDirection: state.themeDirection,
-                    themeLayout: state.themeLayout,
-                    themeStretch: state.themeStretch,
-                    themeColorPresets: state.themeColorPresets,
-                }, mapValue));
+                const localState = JSON.parse(storageValue) as SettingState;
+                getState().saveHandler(localState);
             } catch (e) {
                 console.warn(e);
             }
         }
     },
-    saveLocal: () => {
+    saveHandler: (newState) => {
         const state = getState();
-        StorageUtils.setLocal(localStorageName, JSON.stringify({
+        const currentState = Object.assign({
             themeMode: state.themeMode,
             themeContrast: state.themeContrast,
             themeDirection: state.themeDirection,
             themeLayout: state.themeLayout,
             themeStretch: state.themeStretch,
             themeColorPresets: state.themeColorPresets
-        }));
+        }, newState);
+        const isDefault = DiffUtils.isEqual(currentState, defaultState);
+
+        setState({ ...currentState, isDefault });
+        document.dir = currentState.themeDirection;
+        StorageUtils.setLocal(localStorageName, JSON.stringify(currentState));
     },
     setThemeMode: (themeMode: PaletteMode) => {
-        setState({ themeMode });
-        getState().saveLocal();
+        getState().saveHandler({ themeMode });
     },
     setThemeContrast: (themeContrast: ThemeContrast) => {
-        setState({ themeContrast });
-        getState().saveLocal();
+        getState().saveHandler({ themeContrast });
     },
     setThemeDirection: (themeDirection: ThemeDirection) => {
-        setState({ themeDirection });
-        getState().saveLocal();
+        getState().saveHandler({ themeDirection });
     },
     setThemeLayout: (themeLayout: ThemeLayout) => {
-        setState({ themeLayout });
-        getState().saveLocal();
+        getState().saveHandler({ themeLayout });
     },
     setThemeStretch: (themeStretch: boolean) => {
-        setState({ themeStretch });
-        getState().saveLocal();
+        getState().saveHandler({ themeStretch });
     },
     setThemeCorePresets: (themeColorPresets: ThemeColorPresets) => {
-        setState({ themeColorPresets });
-        getState().saveLocal();
+        getState().saveHandler({ themeColorPresets });
+    },
+    reset: () => {
+        getState().saveHandler(defaultState);
+    },
+    show: () => {
+        setState({ visible: true });
+    },
+    hide: () => {
+        setState({ visible: false });
     }
 }));
 

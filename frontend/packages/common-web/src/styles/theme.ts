@@ -1,18 +1,44 @@
 import { PaletteMode } from '@mui/material';
-import { SimplePaletteColorOptions, ThemeOptions, PaletteOptions, TypeText, TypeBackground, TypeAction, Shadows, alpha } from '@mui/material/styles';
-import CssBaselineDefine from '@mals/common-web/styles/components/css-baseline';
-import LinearProgressDefine from '@mals/common-web/styles/components/linear-progress';
-import ButtonDefine from '@mals/common-web/styles/components/button';
-import FabDefine from '@mals/common-web/styles/components/fab';
-import CardDefine from '@mals/common-web/styles/components/card';
-import MenuItemDefine from '@mals/common-web/styles/components/menu-item';
-import FormDefine from '@mals/common-web/styles/components/form';
-import AutoCompleteDefine from '@mals/common-web/styles/components/auto-complete';
-import BreadcrumbsDefine from '@mals/common-web/styles/components/breadcrumbs';
-import TypographDefine from '@mals/common-web/styles/components/typograph';
-import AccordionDefine from '@mals/common-web/styles/components/accordion';
-import BackdropDefine from '@mals/common-web/styles/components/backdrop';
-import TreeViewDefine from '@mals/common-web/styles/components/tree-view';
+import { SimplePaletteColorOptions, ThemeOptions, PaletteOptions, TypeText, TypeBackground, TypeAction, Shadows, alpha, Theme } from '@mui/material/styles';
+import cssBaselineDefine from '@mals/common-web/styles/components/css-baseline';
+import linearProgressDefine from '@mals/common-web/styles/components/linear-progress';
+import buttonDefine from '@mals/common-web/styles/components/button';
+import fabDefine from '@mals/common-web/styles/components/fab';
+import cardDefine from '@mals/common-web/styles/components/card';
+import menuItemDefine from '@mals/common-web/styles/components/menu-item';
+import formDefine from '@mals/common-web/styles/components/form';
+import autoCompleteDefine from '@mals/common-web/styles/components/auto-complete';
+import breadcrumbsDefine from '@mals/common-web/styles/components/breadcrumbs';
+import typographDefine from '@mals/common-web/styles/components/typograph';
+import accordionDefine from '@mals/common-web/styles/components/accordion';
+import backdropDefine from '@mals/common-web/styles/components/backdrop';
+import treeViewDefine from '@mals/common-web/styles/components/tree-view';
+import timelineDefine from '@mals/common-web/styles/components/timeline';
+import skeletonDefine from '@mals/common-web/styles/components/skeleton';
+import dataGridDefine from '@mals/common-web/styles/components/data-grid';
+import checkboxDefine from '@mals/common-web/styles/components/checkbox';
+import svgIconDefine from '@mals/common-web/styles/components/svg-icon';
+import popoverDefine from '@mals/common-web/styles/components/popover';
+import tooltipDefine from '@mals/common-web/styles/components/tooltip';
+import stepDefine from '@mals/common-web/styles/components/step';
+import drawerDefine from '@mals/common-web/styles/components/drawer';
+import sliderDefine from '@mals/common-web/styles/components/slider';
+import avatarDefine from '@mals/common-web/styles/components/avatar';
+import dialogDefine from '@mals/common-web/styles/components/dialog';
+import ratingDefine from '@mals/common-web/styles/components/rating';
+import selectDefine from '@mals/common-web/styles/components/select';
+import paperDefine from '@mals/common-web/styles/components/paper';
+import tableDefine from '@mals/common-web/styles/components/table';
+import listItemDefine from '@mals/common-web/styles/components/list-item';
+import badgeDefine from '@mals/common-web/styles/components/badge';
+import radioDefine from '@mals/common-web/styles/components/radio';
+import inputDefine from '@mals/common-web/styles/components/input';
+import linkDefine from '@mals/common-web/styles/components/link';
+import tabsDefine from '@mals/common-web/styles/components/tabs';
+import paginationDefine from '@mals/common-web/styles/components/pagination';
+import switchDefine from '@mals/common-web/styles/components/switch';
+import alertDefine from '@mals/common-web/styles/components/alert';
+import chipDefine from '@mals/common-web/styles/components/chip';
 
 // #00AB55, #078DEE, #7635dc, #2065D1, #fda92d, #FF3030
 export type PrimaryColor = 'default' | 'cyan' | 'purple' | 'blue' | 'orange' | 'red';
@@ -36,13 +62,17 @@ export interface CustomShadows {
     dropdown: string;
 }
 
+export type ThemeContrast = 'default' | 'bold';
+
 declare module '@mui/material/styles' {
     interface ThemeOptions {
         customShadows?: CustomShadows;
+        contrast?: ThemeContrast;
     }
 
     interface Theme {
         customShadows: CustomShadows;
+        contrast: ThemeContrast;
     }
 
     interface SimplePaletteColorOptions {
@@ -50,9 +80,18 @@ declare module '@mui/material/styles' {
         darker?: string;
     }
 
+    interface PaletteColor {
+        lighter: string;
+        darker: string;
+    }
+
     interface TypeBackground {
         neutral?: string;
     }
+}
+
+declare module '@mui/system' {
+    interface DefaultTheme extends Theme {}
 }
 
 const greyColors = {
@@ -68,7 +107,9 @@ const greyColors = {
     900: '#161C24'
 };
 
-export const colors = ['primary', 'secondary', 'info', 'success', 'warning', 'error'];
+type Colors = 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
+
+export const colors: Colors[] = ['primary', 'secondary', 'info', 'success', 'warning', 'error'];
 
 const commonColors = {
     black: '#000000',
@@ -171,17 +212,17 @@ function getTextColors(mode: PaletteMode): TypeText {
     }
 }
 
-function getBackgroundColors(mode: PaletteMode): TypeBackground {
+function getBackgroundColors(mode: PaletteMode, contrast: ThemeContrast): TypeBackground {
     if (mode === 'light') {
         return {
             paper: '#FFFFFF',
-            default: greyColors[100],
+            default: contrast == 'bold' ? greyColors[100] : '#FFFFFF',
             neutral: greyColors[200]
         }
     } else {
         return {
             paper: greyColors[800],
-            default: greyColors[900],
+            default: contrast == 'bold' ? greyColors[900] : greyColors[900],
             neutral: alpha(greyColors[200], 0.16)
         }
     }
@@ -246,7 +287,7 @@ function getCustomShadows(mode: PaletteMode, palette: PaletteOptions): CustomSha
     }
 }
 
-function getTheme(mode: PaletteMode, colorPresets: PrimaryColor): ThemeOptions {
+function getTheme(mode: PaletteMode, colorPresets: PrimaryColor, contrast: ThemeContrast): ThemeOptions {
     const palette = {
         mode,
         common: commonColors,
@@ -295,34 +336,115 @@ function getTheme(mode: PaletteMode, colorPresets: PrimaryColor): ThemeOptions {
         divider: alpha(greyColors[500], 0.24),
         action: getActionColors(mode),
         text: getTextColors(mode),
-        background: getBackgroundColors(mode)
+        background: getBackgroundColors(mode, contrast)
     };
 
     return {
         palette,
-        // 这里有坑，自定义组件样式的事后，如果styleOverrides不能为空，不然defaultProps不生效
         components: {
-            ...CssBaselineDefine,
-            ...ButtonDefine,
-            ...LinearProgressDefine,
-            ...FabDefine,
-            ...CardDefine,
-            ...MenuItemDefine,
-            ...FormDefine,
-            ...AutoCompleteDefine,
-            ...BreadcrumbsDefine,
-            ...TypographDefine,
-            ...AccordionDefine,
-            ...BackdropDefine,
-            ...TreeViewDefine
+            ...cssBaselineDefine,
+            ...buttonDefine,
+            ...linearProgressDefine,
+            ...fabDefine,
+            ...cardDefine,
+            ...menuItemDefine,
+            ...formDefine,
+            ...autoCompleteDefine,
+            ...breadcrumbsDefine,
+            ...typographDefine,
+            ...accordionDefine,
+            ...backdropDefine,
+            ...treeViewDefine,
+            ...timelineDefine,
+            ...skeletonDefine,
+            ...dataGridDefine,
+            ...checkboxDefine,
+            ...svgIconDefine,
+            ...popoverDefine,
+            ...tooltipDefine,
+            ...stepDefine,
+            ...drawerDefine,
+            ...sliderDefine,
+            ...avatarDefine,
+            ...dialogDefine,
+            ...ratingDefine,
+            ...selectDefine,
+            ...paperDefine,
+            ...tableDefine,
+            ...listItemDefine,
+            ...badgeDefine,
+            ...radioDefine,
+            ...inputDefine,
+            ...linkDefine,
+            ...tabsDefine,
+            ...paginationDefine,
+            ...switchDefine,
+            ...alertDefine,
+            ...chipDefine
         },
         shadows: getShadowns(mode),
         customShadows: getCustomShadows(mode, palette),
+        contrast,
         shape: {
             borderRadius: 8
         },
         typography: {
-            fontFamily: 'Inter,-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif'
+            fontFamily: 'Inter,-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif',
+            h1: {
+                fontSize: 64,
+                lineHeight: '80px',
+                fontWeight: 800
+            },
+            h2: {
+                fontSize: 48,
+                lineHeight: '64px',
+                fontWeight: 800
+            },
+            h3: {
+                fontSize: 32,
+                lineHeight: '48px',
+                fontWeight: 700
+            },
+            h4: {
+                fontSize: 24,
+                lineHeight: '36px',
+                fontWeight: 700
+            },
+            h5: {
+                fontSize: 20,
+                lineHeight: '30px',
+                fontWeight: 700
+            },
+            h6: {
+                fontSize: 18,
+                lineHeight: '28px',
+                fontWeight: 700
+            },
+            body1: {
+                fontSize: 16,
+                lineHeight: '24px',
+                fontWeight: 400
+            },
+            body2: {
+                fontSize: 12,
+                lineHeight: '22px',
+                fontWeight: 400
+            },
+            caption: {
+                fontSize: 12,
+                lineHeight: '18px',
+                fontWeight: 400
+            },
+            overline: {
+                fontSize: 12,
+                lineHeight: '18px',
+                fontWeight: 700
+            },
+            button: {
+                fontSize: 14,
+                lineHeight: '24px',
+                fontWeight: 700
+            }
         }
     };
 }

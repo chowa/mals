@@ -7,7 +7,10 @@ export default <Components<Theme>>{
                 position: 'relative',
                 boxShadow: theme.customShadows.card,
                 borderRadius: 2 * theme.shape.borderRadius,
-                zIndex: 0
+                zIndex: 0,
+                ...(theme.contrast === 'bold' && {
+                    boxShadow: theme.customShadows.z4
+                })
             })
         }
     },

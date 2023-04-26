@@ -17,6 +17,9 @@ import TreeView from '@mui/lab/TreeView';
 import TreeItem from '@mui/lab/TreeItem';
 import SvgIcon from '@mui/material/SvgIcon';
 import {createElement} from 'react';
+import Switch from '@mui/material/Switch'
+import Logo from '@mals/common-web/components/logo';
+import Suspense from '@mals/common-web/components/suspense';
 
 function Text() {
     return (
@@ -101,6 +104,11 @@ function Text() {
                         </TreeItem>
                     </TreeItem>
                 </TreeView>
+
+                <Switch defaultChecked/>
+
+                <Logo/>
+                <Suspense/>
             </Container>
         </App>
     )

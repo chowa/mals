@@ -7,7 +7,7 @@ class StorageUtils {
      * @return {type}               void
      */
     public static setLocal(key: string, value: string): void {
-        localStorage.setItem(key, value);
+        window.localStorage.setItem(key, value);
     }
 
     /**
@@ -16,7 +16,7 @@ class StorageUtils {
      * @param  {type} key: string 字段名
      */
     public static getLocal(key: string): string | null {
-        return localStorage.getItem(key);
+        return window.localStorage.getItem(key);
     }
 
     /**
@@ -29,9 +29,9 @@ class StorageUtils {
         localStorage.removeItem(key);
     }
 
-    public static listenerLocal(fn: () => any): void {
-        window.addEventListener('storage', fn, false);
-    }
+    // public static listenerLocal(fn: () => any): void {
+    //     window.addEventListener('storage', fn, false);
+    // }
 
     /**
      * @public static - 设置session
@@ -41,7 +41,7 @@ class StorageUtils {
      * @return {type}               description
      */
     public static setSession(key: string, value: string): void {
-        sessionStorage.setItem(key, value);
+        window.sessionStorage.setItem(key, value);
     }
 
     /**
@@ -50,7 +50,7 @@ class StorageUtils {
      * @param  {type} key: string 字段名
      */
     public static getSession(key: string): string | null {
-        return sessionStorage.getItem(key);
+        return window.sessionStorage.getItem(key);
     }
 
     /**
@@ -60,7 +60,7 @@ class StorageUtils {
      * @return {type}             void
      */
     public static removeSession(key: string): void {
-        sessionStorage.removeItem(key);
+        window.sessionStorage.removeItem(key);
     }
 }
 
