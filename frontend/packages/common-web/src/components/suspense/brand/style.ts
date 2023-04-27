@@ -2,8 +2,8 @@ import { createStyles } from '@mui/styles';
 
 export default createStyles({
     root: {
-        width: 180,
-        height: 180,
+        width: '100%',
+        height: '100%',
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',

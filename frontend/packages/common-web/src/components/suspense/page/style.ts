@@ -26,7 +26,7 @@ export default makeStyles<Theme>(theme => createStyles({
         width: '33%',
         height: '33%',
         float: 'left',
-        background: theme.palette.primary.light,
+        background: theme.palette.primary.main,
         animation: '$suspensing 1.3s infinite ease-in-out',
     },
     cube1: {

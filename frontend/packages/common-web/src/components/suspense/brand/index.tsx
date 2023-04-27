@@ -1,11 +1,10 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import Logo from '@mals/common-web/components/logo';
 import Box from '@mui/material/Box';
 import { useTheme, alpha } from '@mui/material/styles';
-import styles from '@mals/common-web/components/loading/style';
+import styles from '@mals/common-web/components/suspense/brand/style';
 
-function Loading() {
+function BrandSuspense() {
     const theme = useTheme();
 
     return (
@@ -68,4 +67,4 @@ function Loading() {
     );
 }
 
-export default Loading;
+export default BrandSuspense;

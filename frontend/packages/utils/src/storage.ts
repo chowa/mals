@@ -29,9 +29,9 @@ class StorageUtils {
         localStorage.removeItem(key);
     }
 
-    // public static listenerLocal(fn: () => any): void {
-    //     window.addEventListener('storage', fn, false);
-    // }
+    public static onLocalChange(fn: () => any): void {
+        window.addEventListener('storage', fn, false);
+    }
 
     /**
      * @public static - 设置session

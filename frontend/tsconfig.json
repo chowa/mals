@@ -23,5 +23,8 @@
             "@mals/types/*": ["./packages/types/src/*"],
             "@mals/utils/*": ["./packages/utils/src/*"]
         }
-    }
+    },
+    "exclude": [
+        "node_modules"
+    ]
 }

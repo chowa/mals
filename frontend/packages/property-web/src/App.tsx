@@ -19,7 +19,6 @@ import SvgIcon from '@mui/material/SvgIcon';
 import {createElement} from 'react';
 import Switch from '@mui/material/Switch'
 import Logo from '@mals/common-web/components/logo';
-import Suspense from '@mals/common-web/components/suspense';
 
 function Text() {
     return (
@@ -108,7 +107,6 @@ function Text() {
                 <Switch defaultChecked/>
 
                 <Logo/>
-                <Suspense/>
             </Container>
         </App>
     )

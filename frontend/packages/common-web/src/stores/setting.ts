@@ -64,21 +64,27 @@ const useSettingStore = create<SettingStore>((setState, getState) => ({
     isDefault: true,
     isFullScreen: getIsFullScreen(),
     initialize: () => {
-        const storageValue = StorageUtils.getLocal(localStorageName);
         const event = ('onfullscreenchange' in window.document) ? 'fullscreenchange' : 'webkitfullscreenchange';
 
         window.document.addEventListener(event, () => {
             setState({ isFullScreen: getIsFullScreen() });
         }, false);
 
-        if (storageValue) {
-            try {
-                const localState = JSON.parse(storageValue) as SettingState;
-                getState().saveHandler(localState);
-            } catch (e) {
-                console.warn(e);
+        const storageListener = () => {
+            const storageValue = StorageUtils.getLocal(localStorageName);
+
+            if (storageValue) {
+                try {
+                    const localState = JSON.parse(storageValue) as SettingState;
+                    getState().saveHandler(localState);
+                } catch (e) {
+                    console.warn(e);
+                }
             }
         }
+
+        StorageUtils.onLocalChange(storageListener);
+        storageListener();
     },
     saveHandler: (newState) => {
         const state = getState();

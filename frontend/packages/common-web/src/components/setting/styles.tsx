@@ -108,11 +108,11 @@ export const SkretchAnim = styled(Box, { shouldForwardProp: (prop) => prop !== '
     ...(active && {
         width: '50%',
 
-        '& .MuiSvgIcon-root:first-child': {
+        '& .MuiSvgIcon-root:first-of-type': {
             transform: 'rotate(-180deg)'
         },
 
-        '& .MuiSvgIcon-root:last-child': {
+        '& .MuiSvgIcon-root:last-of-type': {
             transform: 'rotate(180deg)'
         }
     })

@@ -1,8 +1,7 @@
-import React from 'react';
 import classNames from 'classnames';
-import useStyles from '@mals/common-web/components/suspense/style';
+import useStyles from '@mals/common-web/components/suspense/page/style';
 
-function Suspense() {
+function PageSuspense() {
     const classes = useStyles();
     return (
         <div className={classes.root}>
@@ -21,6 +20,4 @@ function Suspense() {
     );
 }
 
-Suspense.displayName = 'Suspense';
-
-export default Suspense;
+export default PageSuspense;
