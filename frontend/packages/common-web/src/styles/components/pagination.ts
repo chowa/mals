@@ -21,7 +21,7 @@ export default <Components<Theme>>{
                                     }
                                 }
                             }
-                        }
+                        };
                     }
 
                     return {};

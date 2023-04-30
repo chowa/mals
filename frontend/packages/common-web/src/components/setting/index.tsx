@@ -23,7 +23,19 @@ import ThemeLayoutMiniIcon from '@mals/common-web/components/icon/theme-layout-m
 import InfoIcon from '@mals/common-web/components/icon/info';
 import LeftArrowIcon from '@mals/common-web/components/icon/left-arrow';
 import RightArrowIcon from '@mals/common-web/components/icon/right-arrow';
-import { TriggerWrapper, Dot, SettingDrawer, SettingHeader, SettingButton, Section, SectionHeader, OptionsWrapper, SkretchAnim, PresetsBtn, Presets } from './styles';
+import {
+    TriggerWrapper,
+    Dot,
+    SettingDrawer,
+    SettingHeader,
+    SettingButton,
+    Section,
+    SectionHeader,
+    OptionsWrapper,
+    SkretchAnim,
+    PresetsBtn,
+    Presets
+} from '@mals/common-web/components/setting/style';
 
 function inFullScreen() {
     const ele = window.document.documentElement;
@@ -46,12 +58,19 @@ function Setting() {
 
     return (
         <Fragment>
-            <SettingDrawer open={settingStore.visible} ModalProps={{ onBackdropClick: settingStore.hide }} anchor={'right'}>
+            <SettingDrawer
+                open={settingStore.visible}
+                ModalProps={{ onBackdropClick: settingStore.hide }}
+                anchor={'right'}
+            >
                 <SettingHeader>
                     <Typography variant={'h6'}>主题设置</Typography>
                     <Tooltip title={'重置'}>
-                        <Box sx={{position: 'relative'}} onClick={settingStore.isDefault ? undefined : settingStore.reset}>
-                            { !settingStore.isDefault && <Dot sx={{top:5, right: 4}}/> }
+                        <Box
+                            sx={{ position: 'relative' }}
+                            onClick={settingStore.isDefault ? undefined : settingStore.reset}
+                        >
+                            {!settingStore.isDefault && <Dot sx={{ top: 5, right: 4 }} />}
                             <IconButton>
                                 <RefreshIcon />
                             </IconButton>
@@ -61,19 +80,27 @@ function Setting() {
                         <CloseIcon />
                     </IconButton>
                 </SettingHeader>
-                <Divider sx={{borderStyle: 'dashed'}}/>
-                <Box sx={{flexGrow: 1, overflow: 'hidden', height: '100%'}}>
+                <Divider sx={{ borderStyle: 'dashed' }} />
+                <Box sx={{ flexGrow: 1, overflow: 'hidden', height: '100%' }}>
                     <ScrollBar>
                         <Section>
                             <SectionHeader>
                                 <Typography variant={'caption'}>模式</Typography>
                             </SectionHeader>
                             <OptionsWrapper grid={2}>
-                                <SettingButton sx={{height: 72}} active={settingStore.themeMode === 'light'} onClick={() => settingStore.setThemeMode('light')}>
-                                    <ThemeLihgtIcon/>
+                                <SettingButton
+                                    sx={{ height: 72 }}
+                                    active={settingStore.themeMode === 'light'}
+                                    onClick={() => settingStore.setThemeMode('light')}
+                                >
+                                    <ThemeLihgtIcon />
                                 </SettingButton>
-                                <SettingButton sx={{height: 72}} active={settingStore.themeMode === 'dark'} onClick={() => settingStore.setThemeMode('dark')}>
-                                    <ThemeDarkIcon/>
+                                <SettingButton
+                                    sx={{ height: 72 }}
+                                    active={settingStore.themeMode === 'dark'}
+                                    onClick={() => settingStore.setThemeMode('dark')}
+                                >
+                                    <ThemeDarkIcon />
                                 </SettingButton>
                             </OptionsWrapper>
                         </Section>
@@ -83,11 +110,19 @@ function Setting() {
                                 <Typography variant={'caption'}>对比</Typography>
                             </SectionHeader>
                             <OptionsWrapper grid={2}>
-                                <SettingButton sx={{height: 72}} active={settingStore.themeContrast === 'default'} onClick={() => settingStore.setThemeContrast('default')}>
-                                    <ThemeContrastIcon/>
+                                <SettingButton
+                                    sx={{ height: 72 }}
+                                    active={settingStore.themeContrast === 'default'}
+                                    onClick={() => settingStore.setThemeContrast('default')}
+                                >
+                                    <ThemeContrastIcon />
                                 </SettingButton>
-                                <SettingButton sx={{height: 72}} active={settingStore.themeContrast === 'bold'} onClick={() => settingStore.setThemeContrast('bold')}>
-                                    <ThemeContrastBlodIcon/>
+                                <SettingButton
+                                    sx={{ height: 72 }}
+                                    active={settingStore.themeContrast === 'bold'}
+                                    onClick={() => settingStore.setThemeContrast('bold')}
+                                >
+                                    <ThemeContrastBlodIcon />
                                 </SettingButton>
                             </OptionsWrapper>
                         </Section>
@@ -97,11 +132,19 @@ function Setting() {
                                 <Typography variant={'caption'}>方向</Typography>
                             </SectionHeader>
                             <OptionsWrapper grid={2}>
-                                <SettingButton sx={{height: 72}} active={settingStore.themeDirection === 'ltr'} onClick={() => settingStore.setThemeDirection('ltr')}>
-                                    <ThemeDirectionLeftIcon/>
+                                <SettingButton
+                                    sx={{ height: 72 }}
+                                    active={settingStore.themeDirection === 'ltr'}
+                                    onClick={() => settingStore.setThemeDirection('ltr')}
+                                >
+                                    <ThemeDirectionLeftIcon />
                                 </SettingButton>
-                                <SettingButton sx={{height: 72}} active={settingStore.themeDirection === 'rtl'} onClick={() => settingStore.setThemeDirection('rtl')}>
-                                    <ThemeDirectionRightIcon/>
+                                <SettingButton
+                                    sx={{ height: 72 }}
+                                    active={settingStore.themeDirection === 'rtl'}
+                                    onClick={() => settingStore.setThemeDirection('rtl')}
+                                >
+                                    <ThemeDirectionRightIcon />
                                 </SettingButton>
                             </OptionsWrapper>
                         </Section>
@@ -111,14 +154,26 @@ function Setting() {
                                 <Typography variant={'caption'}>布局</Typography>
                             </SectionHeader>
                             <OptionsWrapper grid={3}>
-                                <SettingButton sx={{height: 56}} active={settingStore.themeLayout === 'horizontal'} onClick={() => settingStore.setThemeLayout('horizontal')}>
-                                    <ThemeLayoutHorizontalIcon/>
+                                <SettingButton
+                                    sx={{ height: 56 }}
+                                    active={settingStore.themeLayout === 'horizontal'}
+                                    onClick={() => settingStore.setThemeLayout('horizontal')}
+                                >
+                                    <ThemeLayoutHorizontalIcon />
                                 </SettingButton>
-                                <SettingButton sx={{height: 56}} active={settingStore.themeLayout === 'vertical'} onClick={() => settingStore.setThemeLayout('vertical')}>
-                                    <ThemeLayoutVerticalIcon/>
+                                <SettingButton
+                                    sx={{ height: 56 }}
+                                    active={settingStore.themeLayout === 'vertical'}
+                                    onClick={() => settingStore.setThemeLayout('vertical')}
+                                >
+                                    <ThemeLayoutVerticalIcon />
                                 </SettingButton>
-                                <SettingButton sx={{height: 56}} active={settingStore.themeLayout === 'mini'} onClick={() => settingStore.setThemeLayout('mini')}>
-                                    <ThemeLayoutMiniIcon/>
+                                <SettingButton
+                                    sx={{ height: 56 }}
+                                    active={settingStore.themeLayout === 'mini'}
+                                    onClick={() => settingStore.setThemeLayout('mini')}
+                                >
+                                    <ThemeLayoutMiniIcon />
                                 </SettingButton>
                             </OptionsWrapper>
                         </Section>
@@ -127,17 +182,29 @@ function Setting() {
                             <SectionHeader>
                                 <Typography variant={'caption'}>拉伸</Typography>
                                 <Tooltip title={'只在浏览器宽度大于1600像素时生效'}>
-                                    <Box sx={{marginLeft: '4px', width: 16, height: 16, display: 'flex', alignItems: 'center'}}>
-                                        <InfoIcon/>
+                                    <Box
+                                        sx={{
+                                            marginLeft: '4px',
+                                            width: 16,
+                                            height: 16,
+                                            display: 'flex',
+                                            alignItems: 'center'
+                                        }}
+                                    >
+                                        <InfoIcon />
                                     </Box>
                                 </Tooltip>
                             </SectionHeader>
                             <OptionsWrapper grid={1}>
-                                <SettingButton sx={{height: 48}} active={settingStore.themeStretch} onClick={() => settingStore.setThemeStretch(!settingStore.themeStretch)}>
+                                <SettingButton
+                                    sx={{ height: 48 }}
+                                    active={settingStore.themeStretch}
+                                    onClick={() => settingStore.setThemeStretch(!settingStore.themeStretch)}
+                                >
                                     <SkretchAnim active={settingStore.themeStretch}>
-                                        <RightArrowIcon/>
-                                        <div className={'size-line'}/>
-                                        <LeftArrowIcon/>
+                                        <RightArrowIcon />
+                                        <div className={'size-line'} />
+                                        <LeftArrowIcon />
                                     </SkretchAnim>
                                 </SettingButton>
                             </OptionsWrapper>
@@ -148,41 +215,68 @@ function Setting() {
                                 <Typography variant={'caption'}>颜色</Typography>
                             </SectionHeader>
                             <OptionsWrapper grid={3}>
-                                <PresetsBtn active={settingStore.themeColorPresets === 'default'} onClick={() => settingStore.setThemeCorePresets('default')}>
-                                    <Presets active={settingStore.themeColorPresets === 'default'} color={'#00AB55'}/>
+                                <PresetsBtn
+                                    active={settingStore.themeColorPresets === 'default'}
+                                    onClick={() => settingStore.setThemeCorePresets('default')}
+                                >
+                                    <Presets active={settingStore.themeColorPresets === 'default'} color={'#00AB55'} />
                                 </PresetsBtn>
-                                <PresetsBtn active={settingStore.themeColorPresets === 'cyan'} onClick={() => settingStore.setThemeCorePresets('cyan')}>
-                                    <Presets active={settingStore.themeColorPresets === 'cyan'} color={'#078DEE'}/>
+                                <PresetsBtn
+                                    active={settingStore.themeColorPresets === 'cyan'}
+                                    onClick={() => settingStore.setThemeCorePresets('cyan')}
+                                >
+                                    <Presets active={settingStore.themeColorPresets === 'cyan'} color={'#078DEE'} />
                                 </PresetsBtn>
-                                <PresetsBtn active={settingStore.themeColorPresets === 'purple'} onClick={() => settingStore.setThemeCorePresets('purple')}>
-                                    <Presets active={settingStore.themeColorPresets === 'purple'} color={'#7635dc'}/>
+                                <PresetsBtn
+                                    active={settingStore.themeColorPresets === 'purple'}
+                                    onClick={() => settingStore.setThemeCorePresets('purple')}
+                                >
+                                    <Presets active={settingStore.themeColorPresets === 'purple'} color={'#7635dc'} />
                                 </PresetsBtn>
-                                <PresetsBtn active={settingStore.themeColorPresets === 'blue'} onClick={() => settingStore.setThemeCorePresets('blue')}>
-                                    <Presets active={settingStore.themeColorPresets === 'blue'} color={'#2065D1'}/>
+                                <PresetsBtn
+                                    active={settingStore.themeColorPresets === 'blue'}
+                                    onClick={() => settingStore.setThemeCorePresets('blue')}
+                                >
+                                    <Presets active={settingStore.themeColorPresets === 'blue'} color={'#2065D1'} />
                                 </PresetsBtn>
-                                <PresetsBtn active={settingStore.themeColorPresets === 'orange'} onClick={() => settingStore.setThemeCorePresets('orange')}>
-                                    <Presets active={settingStore.themeColorPresets === 'orange'} color={'#fda92d'}/>
+                                <PresetsBtn
+                                    active={settingStore.themeColorPresets === 'orange'}
+                                    onClick={() => settingStore.setThemeCorePresets('orange')}
+                                >
+                                    <Presets active={settingStore.themeColorPresets === 'orange'} color={'#fda92d'} />
                                 </PresetsBtn>
-                                <PresetsBtn active={settingStore.themeColorPresets === 'red'} onClick={() => settingStore.setThemeCorePresets('red')}>
-                                    <Presets active={settingStore.themeColorPresets === 'red'} color={'#FF3030'}/>
+                                <PresetsBtn
+                                    active={settingStore.themeColorPresets === 'red'}
+                                    onClick={() => settingStore.setThemeCorePresets('red')}
+                                >
+                                    <Presets active={settingStore.themeColorPresets === 'red'} color={'#FF3030'} />
                                 </PresetsBtn>
                             </OptionsWrapper>
                         </Section>
                     </ScrollBar>
                 </Box>
-                <Box sx={theme => ({padding: theme.spacing(0, 2.5, 2.5)})}>
-                    <SettingButton sx={{height: 48}} active={settingStore.isFullScreen} simple onClick={settingStore.isFullScreen ? exitFullScreen : inFullScreen}>
-                        { settingStore.isFullScreen ? '退出全屏' : '进入全屏' }
-                        { settingStore.isFullScreen ? <ExitFullScreenIcon sx={{marginLeft: '8px'}}/> : <InFullScreenIcon sx={{marginLeft: '8px'}}/> }
+                <Box sx={theme => ({ padding: theme.spacing(0, 2.5, 2.5) })}>
+                    <SettingButton
+                        sx={{ height: 48 }}
+                        active={settingStore.isFullScreen}
+                        simple
+                        onClick={settingStore.isFullScreen ? exitFullScreen : inFullScreen}
+                    >
+                        {settingStore.isFullScreen ? '退出全屏' : '进入全屏'}
+                        {settingStore.isFullScreen ? (
+                            <ExitFullScreenIcon sx={{ marginLeft: '8px' }} />
+                        ) : (
+                            <InFullScreenIcon sx={{ marginLeft: '8px' }} />
+                        )}
                     </SettingButton>
                 </Box>
             </SettingDrawer>
 
             <Tooltip title={'主题设置'}>
                 <TriggerWrapper onClick={settingStore.show}>
-                    { !settingStore.isDefault && <Dot sx={{top:8, right: 10}}/> }
-                    <IconButton size={'medium'} color={'primary'} sx={{padding: '10px'}}>
-                        <ThemeSettingIcon/>
+                    {!settingStore.isDefault && <Dot sx={{ top: 8, right: 10 }} />}
+                    <IconButton size={'medium'} color={'primary'} sx={{ padding: '10px' }}>
+                        <ThemeSettingIcon />
                     </IconButton>
                 </TriggerWrapper>
             </Tooltip>

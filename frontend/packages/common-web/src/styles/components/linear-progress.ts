@@ -1,6 +1,6 @@
 import { Components, Theme, CSSInterpolation } from '@mui/material';
 import { colors } from '@mals/common-web/styles/theme';
-import {alpha} from '@mui/material/styles';
+import { alpha } from '@mui/material/styles';
 
 export default <Components<Theme>>{
     MuiLinearProgress: {
@@ -10,7 +10,7 @@ export default <Components<Theme>>{
                     if (color === ownerState.color) {
                         return {
                             backgroundColor: alpha(theme.palette[color].main, 0.24)
-                        }
+                        };
                     }
 
                     return {};
@@ -24,7 +24,7 @@ export default <Components<Theme>>{
                     ...(ownerState.variant === 'buffer' && {
                         backgroundColor: 'transparent'
                     })
-                }
+                };
 
                 return colorTheme.concat([root]);
             }

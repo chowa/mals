@@ -21,7 +21,7 @@ function BrandSuspense() {
                     repeat: Infinity
                 }}
             >
-                <Logo sx={{width: 64, height: 64}} />
+                <Logo sx={{ width: 64, height: 64 }} />
             </motion.div>
             <Box sx={styles.circle}>
                 <motion.div

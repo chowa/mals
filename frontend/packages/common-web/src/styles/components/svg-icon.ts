@@ -1,4 +1,4 @@
-import {Components, Theme} from '@mui/material';
+import { Components, Theme } from '@mui/material';
 
 export default <Components<Theme>>{
     MuiSvgIcon: {

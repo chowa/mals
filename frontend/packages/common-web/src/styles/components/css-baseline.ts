@@ -5,7 +5,8 @@ export default <Components<Theme>>{
         styleOverrides: {
             'html, body, #root': {
                 width: '100%',
-                height: '100%'
+                height: '100%',
+                minWidth: 1200
             },
             input: {
                 '&[type=number]': {
@@ -27,6 +28,9 @@ export default <Components<Theme>>{
             ul: {
                 margin: 0,
                 padding: 0
+            },
+            a: {
+                textDecoration: 'none'
             }
         }
     }

@@ -10,15 +10,15 @@ export default <Components<Theme>>{
         styleOverrides: {
             root: ({ ownerState, theme }) => {
                 const colorTheme: CSSInterpolation[] = colors.map(color => {
-                   if (ownerState.color === color && ownerState.variant === 'contained') {
-                       return {
-                           '&:hover': {
-                               boxShadow: theme.customShadows[color]
-                           }
-                       };
-                   }
+                    if (ownerState.color === color && ownerState.variant === 'contained') {
+                        return {
+                            '&:hover': {
+                                boxShadow: theme.customShadows[color]
+                            }
+                        };
+                    }
 
-                   return {};
+                    return {};
                 });
 
                 const inherit = {
@@ -46,7 +46,7 @@ export default <Components<Theme>>{
                 };
 
                 const disabled = {
-                    '&.Mui-disabled':  {
+                    '&.Mui-disabled': {
                         backgroundColor: theme.palette.action.disabledBackground
                     }
                 };
@@ -62,34 +62,37 @@ export default <Components<Theme>>{
                     })
                 };
 
-                return colorTheme.concat( [inherit, disabled, size]);
+                return colorTheme.concat([inherit, disabled, size]);
             }
         }
     },
     MuiLoadingButton: {
-        variants: [{
-            props: {
-                loading: false,
-                loadingPosition: 'start',
-                size: 'small'
+        variants: [
+            {
+                props: {
+                    loading: false,
+                    loadingPosition: 'start',
+                    size: 'small'
+                },
+                style: {
+                    '& .MuiLoadingButton-loadingIndicatorStart': {
+                        left: 10
+                    }
+                }
             },
-            style: {
-                '& .MuiLoadingButton-loadingIndicatorStart': {
-                    left: 10
+            {
+                props: {
+                    loading: false,
+                    loadingPosition: 'end',
+                    size: 'small'
+                },
+                style: {
+                    '& .MuiLoadingButton-loadingIndicatorEnd': {
+                        right: 10
+                    }
                 }
             }
-        }, {
-            props: {
-                loading: false,
-                loadingPosition: 'end',
-                size: 'small'
-            },
-            style: {
-                '& .MuiLoadingButton-loadingIndicatorEnd': {
-                    right: 10
-                }
-            }
-        }],
+        ],
         styleOverrides: {
             loadingIndicatorStart: {
                 left: 14
@@ -161,9 +164,11 @@ export default <Components<Theme>>{
                 const colorTheme: CSSInterpolation[] = colors.map(color => {
                     return {
                         '& .MuiButtonGroup-grouped': {
-                            ...(ownerState.variant !== 'outlined' && ownerState.color === color && ownerState.variant === 'contained' && {
-                                borderColor: alpha(theme.palette[color].dark, 0.48)
-                            }),
+                            ...(ownerState.variant !== 'outlined' &&
+                                ownerState.color === color &&
+                                ownerState.variant === 'contained' && {
+                                    borderColor: alpha(theme.palette[color].dark, 0.48)
+                                }),
                             ...(ownerState.variant === 'contained' && {
                                 borderColor: alpha(theme.palette[color].dark, 0.48)
                             })
@@ -194,7 +199,7 @@ export default <Components<Theme>>{
                             borderColor: theme.palette.action.disabledBackground
                         }
                     }
-                }
+                };
 
                 return colorTheme.concat([lastChild, disabled]);
             }

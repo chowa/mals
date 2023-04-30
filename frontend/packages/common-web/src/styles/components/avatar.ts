@@ -4,7 +4,7 @@ import { alpha } from '@mui/material/styles';
 export default <Components<Theme>>{
     MuiAvatar: {
         styleOverrides: {
-            colorDefault: ({ theme }) => ({
+            root: ({ theme }) => ({
                 color: theme.palette.text.secondary,
                 backgroundColor: alpha(theme.palette.grey[500], 0.24)
             })

@@ -43,7 +43,6 @@ export default <Components<Theme>>{
                     '& .MuiListItemIcon-root': {
                         minWidth: 'auto'
                     }
-
                 }
             }),
             panelFooter: ({ theme }) => ({
@@ -75,7 +74,7 @@ export default <Components<Theme>>{
                 padding: theme.spacing(1.5, 0),
 
                 '& .MuiFormControl-root': {
-                    margin: theme.spacing(0, .5)
+                    margin: theme.spacing(0, 0.5)
                 },
                 '& .MuiInput-root': {
                     marginTop: theme.spacing(3),
@@ -86,7 +85,7 @@ export default <Components<Theme>>{
 
                     '& .MuiNativeSelect-select, .MuiInput-input': {
                         ...theme.typography.body2,
-                        padding: theme.spacing(.75, 1),
+                        padding: theme.spacing(0.75, 1),
                         borderRadius: theme.shape.borderRadius,
                         backgroundColor: theme.palette.background.neutral
                     },

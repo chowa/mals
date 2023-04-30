@@ -1,4 +1,5 @@
 import { useMemo, useEffect, ReactNode, Suspense, lazy, FC } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useSettingStore from '@mals/common-web/stores/setting';
@@ -10,20 +11,23 @@ import rtlPlugin from 'stylis-plugin-rtl';
 import { prefixer } from 'stylis';
 import { CacheProvider } from '@emotion/react';
 import createCache from '@emotion/cache';
-import { BodyProps } from '@mals/common-web/components/body'
+import { LayoutsProps } from '@mals/common-web/layouts';
 import * as process from 'process';
 
 interface AppProps {
     children?: ReactNode;
 }
 
-const Body = lazy<FC<BodyProps>>(() => {
+const Layouts = lazy<FC<LayoutsProps>>(() => {
     return new Promise(resolve => {
-        setTimeout(() => {
-            resolve(import('@mals/common-web/components/body'));
-        }, process.env.NODE_ENV !== 'producation' ? 1200 : 0);
+        setTimeout(
+            () => {
+                resolve(import('@mals/common-web/layouts'));
+            },
+            process.env.NODE_ENV === 'producation' ? 1200 : 0
+        );
     });
-})
+});
 
 function App({ children }: AppProps) {
     const settingStore = useSettingStore();
@@ -33,7 +37,9 @@ function App({ children }: AppProps) {
     }, []);
 
     const theme = useMemo(() => {
-        return createTheme(getTheme(settingStore.themeMode, settingStore.themeColorPresets, settingStore.themeContrast));
+        return createTheme(
+            getTheme(settingStore.themeMode, settingStore.themeColorPresets, settingStore.themeContrast)
+        );
     }, [settingStore.themeMode, settingStore.themeColorPresets, settingStore.themeContrast]);
 
     const cacheRtl = useMemo(() => {
@@ -48,20 +54,20 @@ function App({ children }: AppProps) {
                 stylisPlugins: [prefixer, rtlPlugin]
             });
         }
-    }, [settingStore.themeDirection ]);
+    }, [settingStore.themeDirection]);
 
     return (
         <CacheProvider value={cacheRtl}>
             <ThemeProvider theme={theme}>
-                <CssBaseline/>
-                <Suspense fallback={<BrandSuspense/>}>
-                    <Body>
-                        <Suspense fallback={<PageSuspense/>}>
-                            { children }
-                        </Suspense>
-                    </Body>
-                </Suspense>
-                <Setting />
+                <BrowserRouter>
+                    <CssBaseline />
+                    <Suspense fallback={<BrandSuspense />}>
+                        <Layouts>
+                            <Suspense fallback={<PageSuspense />}>{children}</Suspense>
+                        </Layouts>
+                    </Suspense>
+                    <Setting />
+                </BrowserRouter>
             </ThemeProvider>
         </CacheProvider>
     );

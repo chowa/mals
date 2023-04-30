@@ -4,11 +4,11 @@ import { PrimaryColor, ThemeContrast } from '@mals/common-web/styles/theme';
 import StorageUtils from '@mals/utils/storage';
 import DiffUtils from '@mals/utils/diff';
 
-type ThemeDirection = 'ltr' | 'rtl';
+export type ThemeDirection = 'ltr' | 'rtl';
 
-type ThemeLayout = 'vertical' | 'horizontal' | 'mini';
+export type ThemeLayout = 'vertical' | 'horizontal' | 'mini';
 
-type ThemeColorPresets = PrimaryColor;
+export type ThemeColorPresets = PrimaryColor;
 
 interface SettingState {
     // 主题模式
@@ -16,7 +16,7 @@ interface SettingState {
     // 对比
     themeContrast: ThemeContrast;
     // 布局方向
-    themeDirection: ThemeDirection
+    themeDirection: ThemeDirection;
     // 布局
     themeLayout: ThemeLayout;
     // 内容区域拉长
@@ -42,7 +42,7 @@ interface SettingStore extends SettingState {
     hide: () => void;
 }
 
-const localStorageName= 'setting';
+const localStorageName = 'setting';
 
 const defaultState: SettingState = {
     themeMode: 'light',
@@ -55,7 +55,7 @@ const defaultState: SettingState = {
 
 function getIsFullScreen(): boolean {
     // @ts-expect-error
-    return (window.document.fullscreenElement || window.document.webkitFullscreenElement) !== null
+    return (window.document.fullscreenElement || window.document.webkitFullscreenElement) !== null;
 }
 
 const useSettingStore = create<SettingStore>((setState, getState) => ({
@@ -64,11 +64,15 @@ const useSettingStore = create<SettingStore>((setState, getState) => ({
     isDefault: true,
     isFullScreen: getIsFullScreen(),
     initialize: () => {
-        const event = ('onfullscreenchange' in window.document) ? 'fullscreenchange' : 'webkitfullscreenchange';
+        const event = 'onfullscreenchange' in window.document ? 'fullscreenchange' : 'webkitfullscreenchange';
 
-        window.document.addEventListener(event, () => {
-            setState({ isFullScreen: getIsFullScreen() });
-        }, false);
+        window.document.addEventListener(
+            event,
+            () => {
+                setState({ isFullScreen: getIsFullScreen() });
+            },
+            false
+        );
 
         const storageListener = () => {
             const storageValue = StorageUtils.getLocal(localStorageName);
@@ -81,21 +85,24 @@ const useSettingStore = create<SettingStore>((setState, getState) => ({
                     console.warn(e);
                 }
             }
-        }
+        };
 
         StorageUtils.onLocalChange(storageListener);
         storageListener();
     },
-    saveHandler: (newState) => {
+    saveHandler: newState => {
         const state = getState();
-        const currentState = Object.assign({
-            themeMode: state.themeMode,
-            themeContrast: state.themeContrast,
-            themeDirection: state.themeDirection,
-            themeLayout: state.themeLayout,
-            themeStretch: state.themeStretch,
-            themeColorPresets: state.themeColorPresets
-        }, newState);
+        const currentState = Object.assign(
+            {
+                themeMode: state.themeMode,
+                themeContrast: state.themeContrast,
+                themeDirection: state.themeDirection,
+                themeLayout: state.themeLayout,
+                themeStretch: state.themeStretch,
+                themeColorPresets: state.themeColorPresets
+            },
+            newState
+        );
         const isDefault = DiffUtils.isEqual(currentState, defaultState);
 
         setState({ ...currentState, isDefault });

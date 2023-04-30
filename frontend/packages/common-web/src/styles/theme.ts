@@ -1,5 +1,15 @@
 import { PaletteMode } from '@mui/material';
-import { SimplePaletteColorOptions, ThemeOptions, PaletteOptions, TypeText, TypeBackground, TypeAction, Shadows, alpha, Theme } from '@mui/material/styles';
+import {
+    SimplePaletteColorOptions,
+    ThemeOptions,
+    PaletteOptions,
+    TypeText,
+    TypeBackground,
+    TypeAction,
+    Shadows,
+    alpha,
+    Theme
+} from '@mui/material/styles';
 import cssBaselineDefine from '@mals/common-web/styles/components/css-baseline';
 import linearProgressDefine from '@mals/common-web/styles/components/linear-progress';
 import buttonDefine from '@mals/common-web/styles/components/button';
@@ -218,13 +228,13 @@ function getBackgroundColors(mode: PaletteMode, contrast: ThemeContrast): TypeBa
             paper: '#FFFFFF',
             default: contrast == 'bold' ? greyColors[100] : '#FFFFFF',
             neutral: greyColors[200]
-        }
+        };
     } else {
         return {
             paper: greyColors[800],
             default: contrast == 'bold' ? greyColors[900] : greyColors[900],
             neutral: alpha(greyColors[200], 0.16)
-        }
+        };
     }
 }
 
@@ -284,7 +294,7 @@ function getCustomShadows(mode: PaletteMode, palette: PaletteOptions): CustomSha
         card: `0 0 2px 0 ${alpha(color, 0.2)}, 0 12px 24px -4px ${alpha(color, 0.12)}`,
         dialog: `-40px 40px 80px -8px ${alpha(color, 0.24)}`,
         dropdown: `0 0 2px 0 ${alpha(color, 0.24)}, -20px 20px 40px -4px ${alpha(color, 0.24)}`
-    }
+    };
 }
 
 function getTheme(mode: PaletteMode, colorPresets: PrimaryColor, contrast: ThemeContrast): ThemeOptions {
@@ -389,7 +399,8 @@ function getTheme(mode: PaletteMode, colorPresets: PrimaryColor, contrast: Theme
             borderRadius: 8
         },
         typography: {
-            fontFamily: 'Inter,-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif',
+            fontFamily:
+                'Inter,-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif',
             h1: {
                 fontSize: 64,
                 lineHeight: '80px',

@@ -9,7 +9,7 @@ export default <Components<Theme>>{
             }),
             li: ({ theme }) => ({
                 display: 'inline-flex',
-                margin: theme.spacing(.25, 0),
+                margin: theme.spacing(0.25, 0),
 
                 '& > *': {
                     ...theme.typography.body2

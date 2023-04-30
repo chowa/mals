@@ -5,7 +5,7 @@ export default <Components<Theme>>{
     MuiBackdrop: {
         styleOverrides: {
             root: ({ theme }) => ({
-                backgroundColor: alpha(theme.palette.grey[800], .8)
+                backgroundColor: alpha(theme.palette.grey[800], 0.8)
             }),
             invisible: {
                 background: 'transparent'
